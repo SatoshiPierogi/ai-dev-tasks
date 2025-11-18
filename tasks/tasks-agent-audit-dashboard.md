@@ -84,29 +84,29 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
   - [x] 1.9 Document schema with comments explaining each table and field
   - [x] 1.10 Create schema review checkpoint - share for feedback before migration setup
 
-- [ ] 2.0 API Contract Definitions & Documentation
-  - [ ] 2.1 Define REST API endpoints in OpenAPI 3.0 format:
-    - [ ] 2.1.1 GET /api/transactions?agent_id=&skip=&limit=&filters=
-    - [ ] 2.1.2 GET /api/agents (list user's agents)
-    - [ ] 2.1.3 POST /api/agents (manual add by address)
-    - [ ] 2.1.4 PATCH /api/agents/:id (rename/label)
-    - [ ] 2.1.5 DELETE /api/agents/:id (remove from dashboard)
-    - [ ] 2.1.6 GET /api/agents/:id (agent details)
-    - [ ] 2.1.7 GET /api/agents/:id/transactions (agent-specific feed)
-    - [ ] 2.1.8 GET /api/agents/:id/stats (agent summary: total value, recent activity, verification rate)
-    - [ ] 2.1.9 GET /api/verify/:txHash (verification proof details)
-  - [ ] 2.2 Define WebSocket message schemas (JSON):
-    - [ ] 2.2.1 transaction_update: {type, agent_id, tx_hash, action, assets, amount, timestamp, verification_status}
-    - [ ] 2.2.2 verification_update: {tx_hash, status, proof_data}
-    - [ ] 2.2.3 agent_status_update: {agent_id, status, last_activity}
-  - [ ] 2.3 Define webhook payload format for agents reporting off-chain actions:
-    - [ ] 2.3.1 POST /api/webhooks/action - {agent_id, user_id, action_type, metadata, signature}
-    - [ ] 2.3.2 Include authentication header requirements
-  - [ ] 2.4 Define verification proof object structure: {tx_hash, chain, block_number, event_logs, signatures}
-  - [ ] 2.5 Document error response format: {error: string, code: string, details?: object}
-  - [ ] 2.6 Create OpenAPI/Swagger spec file (docs/API.md)
-  - [ ] 2.7 Set up Swagger UI for API docs at /api/docs
-  - [ ] 2.8 Create mock server for frontend development (json-server or similar)
+- [x] 2.0 API Contract Definitions & Documentation
+  - [x] 2.1 Define REST API endpoints in OpenAPI 3.0 format:
+    - [x] 2.1.1 GET /api/transactions?agent_id=&skip=&limit=&filters=
+    - [x] 2.1.2 GET /api/agents (list user's agents)
+    - [x] 2.1.3 POST /api/agents (manual add by address)
+    - [x] 2.1.4 PATCH /api/agents/:id (rename/label)
+    - [x] 2.1.5 DELETE /api/agents/:id (remove from dashboard)
+    - [x] 2.1.6 GET /api/agents/:id (agent details)
+    - [x] 2.1.7 GET /api/agents/:id/transactions (agent-specific feed)
+    - [x] 2.1.8 GET /api/agents/:id/stats (agent summary: total value, recent activity, verification rate)
+    - [x] 2.1.9 GET /api/verify/:txHash (verification proof details)
+  - [x] 2.2 Define WebSocket message schemas (JSON):
+    - [x] 2.2.1 transaction_update: {type, agent_id, tx_hash, action, assets, amount, timestamp, verification_status}
+    - [x] 2.2.2 verification_update: {tx_hash, status, proof_data}
+    - [x] 2.2.3 agent_status_update: {agent_id, status, last_activity}
+  - [x] 2.3 Define webhook payload format for agents reporting off-chain actions:
+    - [x] 2.3.1 POST /api/webhooks/action - {agent_id, user_id, action_type, metadata, signature}
+    - [x] 2.3.2 Include authentication header requirements
+  - [x] 2.4 Define verification proof object structure: {tx_hash, chain, block_number, event_logs, signatures}
+  - [x] 2.5 Document error response format: {error: string, code: string, details?: object}
+  - [x] 2.6 Create OpenAPI/Swagger spec file (docs/API.md)
+  - [x] 2.7 Set up Swagger UI for API docs at /api/docs
+  - [x] 2.8 Create mock server for frontend development (json-server or similar)
 
 - [ ] 3.0 Testing Infrastructure & Mock Data
   - [ ] 3.1 Set up Jest testing framework for Node.js backend
