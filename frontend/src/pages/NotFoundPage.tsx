@@ -26,3 +26,4 @@ const NotFoundPage: React.FC = () => {
 };
 
 export { NotFoundPage };
+export default NotFoundPage;

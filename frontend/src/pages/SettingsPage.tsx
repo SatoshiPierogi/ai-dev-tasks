@@ -210,3 +210,4 @@ const SettingsPage: React.FC = () => {
 };
 
 export { SettingsPage };
+export default SettingsPage;

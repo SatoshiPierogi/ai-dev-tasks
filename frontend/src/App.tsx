@@ -1,14 +1,29 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { Layout } from './layout/Layout';
-import {
-  DashboardPage,
-  AgentsPage,
-  AdminPage,
-  SettingsPage,
-  NotFoundPage,
-} from './pages';
+import { WebSocketProvider } from './providers/WebSocketProvider';
+import { LoadingSpinner } from './components/ui/LoadingSpinner';
 import { ROUTE_PATHS, createNavigation } from './routing/routes';
+
+// ============================================================================
+// LAZY LOADED PAGES - Code Splitting for Better Performance
+// ============================================================================
+// These pages are loaded on-demand to reduce initial bundle size
+const DashboardPage = lazy(() => import('./pages/DashboardPage'));
+const AgentsPage = lazy(() => import('./pages/AgentsPage'));
+const AdminPage = lazy(() => import('./pages/AdminPage'));
+const SettingsPage = lazy(() => import('./pages/SettingsPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+
+// ============================================================================
+// LOADING FALLBACK COMPONENT
+// ============================================================================
+
+const PageLoadingFallback: React.FC = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <LoadingSpinner size="lg" />
+  </div>
+);
 
 /**
  * Main Application Component
@@ -87,13 +102,15 @@ const AppContent: React.FC = () => {
       title={title}
       subtitle={subtitle}
     >
-      <Routes>
-        <Route path={ROUTE_PATHS.DASHBOARD} element={<DashboardPage />} />
-        <Route path={ROUTE_PATHS.AGENTS} element={<AgentsPage />} />
-        <Route path={ROUTE_PATHS.ADMIN} element={<AdminPage />} />
-        <Route path={ROUTE_PATHS.SETTINGS} element={<SettingsPage />} />
-        <Route path={ROUTE_PATHS.NOT_FOUND} element={<NotFoundPage />} />
-      </Routes>
+      <Suspense fallback={<PageLoadingFallback />}>
+        <Routes>
+          <Route path={ROUTE_PATHS.DASHBOARD} element={<DashboardPage />} />
+          <Route path={ROUTE_PATHS.AGENTS} element={<AgentsPage />} />
+          <Route path={ROUTE_PATHS.ADMIN} element={<AdminPage />} />
+          <Route path={ROUTE_PATHS.SETTINGS} element={<SettingsPage />} />
+          <Route path={ROUTE_PATHS.NOT_FOUND} element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </Layout>
   );
 };
@@ -101,7 +118,9 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <AppContent />
+      <WebSocketProvider>
+        <AppContent />
+      </WebSocketProvider>
     </BrowserRouter>
   );
 };
