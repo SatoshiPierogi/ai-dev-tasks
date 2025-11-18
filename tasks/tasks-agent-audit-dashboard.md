@@ -108,48 +108,48 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
   - [x] 2.7 Set up Swagger UI for API docs at /api/docs
   - [x] 2.8 Create mock server for frontend development (json-server or similar)
 
-- [ ] 3.0 Testing Infrastructure & Mock Data
-  - [ ] 3.1 Set up Jest testing framework for Node.js backend
-    - [ ] 3.1.1 Install Jest, ts-jest, @types/jest, jest-extended
-    - [ ] 3.1.2 Create jest.config.js with TypeScript support
-    - [ ] 3.1.3 Set up coverage thresholds (80% for functions/lines)
-    - [ ] 3.1.4 Configure test environment (node)
-    - [ ] 3.1.5 Create test setup file for global mocks
-  - [ ] 3.2 Configure test database (isolated PostgreSQL instance for tests)
-    - [ ] 3.2.1 Use Docker container or test database for Jest runs
-    - [ ] 3.2.2 Create setup/teardown scripts for test database
-    - [ ] 3.2.3 Create seed script to populate test data
-  - [ ] 3.3 Create test fixtures directory with seed data:
-    - [ ] 3.3.1 `backend/test/fixtures/wallets.json` - Mock wallet addresses
-    - [ ] 3.3.2 `backend/test/fixtures/agents.json` - Mock agent contracts
-    - [ ] 3.3.3 `backend/test/fixtures/transactions.json` - 100+ realistic transactions
-    - [ ] 3.3.4 Create fixture factory functions for dynamic test data generation
-  - [ ] 3.4 Create The Graph response mocks for each protocol:
-    - [ ] 3.4.1 `backend/src/mocks/thegraph.uniswap.ts` - Uniswap swap responses
-    - [ ] 3.4.2 `backend/src/mocks/thegraph.aave.ts` - Aave deposit/withdraw responses
-    - [ ] 3.4.3 `backend/src/mocks/thegraph.curve.ts` - Curve LP responses
-    - [ ] 3.4.4 `backend/src/mocks/thegraph.balancer.ts` - Balancer responses
-  - [ ] 3.5 Create blockchain/RPC mocks:
-    - [ ] 3.5.1 `backend/src/mocks/blockchain.ts` - Transaction receipts, logs
-    - [ ] 3.5.2 `backend/src/mocks/rpc.responses.ts` - Realistic RPC responses
-    - [ ] 3.5.3 Create mock provider (Ethers.js compatible)
-  - [ ] 3.6 Create wallet connection mocks for testing auth flows
-    - [ ] 3.6.1 `backend/src/mocks/wallet.ts` - Mock wallet signers
-    - [ ] 3.6.2 `backend/test/helpers/signatures.ts` - Helper to generate signatures
-  - [ ] 3.7 Set up E2E testing framework (Playwright or Cypress)
-    - [ ] 3.7.1 Install playwright/cypress
-    - [ ] 3.7.2 Create e2e test configuration
-    - [ ] 3.7.3 Create page objects for common dashboard elements
-  - [ ] 3.8 Create database reset utilities for test isolation
-    - [ ] 3.8.1 `backend/test/helpers/db.ts` - Reset database between tests
-    - [ ] 3.8.2 Implement transaction rollback for test isolation
-  - [ ] 3.9 Create Jest test helpers and utilities
-    - [ ] 3.9.1 `backend/test/helpers/request.ts` - HTTP request helpers
-    - [ ] 3.9.2 `backend/test/helpers/matchers.ts` - Custom Jest matchers
-    - [ ] 3.9.3 `backend/test/helpers/wait.ts` - Async test utilities
-  - [ ] 3.10 Document test setup in docs/SETUP.md
-  - [ ] 3.11 Create `backend/test/jest.setup.ts` for global test configuration
-  - [ ] 3.12 Create CI/CD test script in package.json
+- [x] 3.0 Testing Infrastructure & Mock Data
+  - [x] 3.1 Set up Jest testing framework for Node.js backend
+    - [x] 3.1.1 Install Jest, ts-jest, @types/jest, jest-extended
+    - [x] 3.1.2 Create jest.config.js with TypeScript support
+    - [x] 3.1.3 Set up coverage thresholds (80% for functions/lines)
+    - [x] 3.1.4 Configure test environment (node)
+    - [x] 3.1.5 Create test setup file for global mocks
+  - [x] 3.2 Configure test database (isolated PostgreSQL instance for tests)
+    - [x] 3.2.1 Use Docker container or test database for Jest runs
+    - [x] 3.2.2 Create setup/teardown scripts for test database
+    - [x] 3.2.3 Create seed script to populate test data
+  - [x] 3.3 Create test fixtures directory with seed data:
+    - [x] 3.3.1 `backend/test/fixtures/wallets.json` - Mock wallet addresses
+    - [x] 3.3.2 `backend/test/fixtures/agents.json` - Mock agent contracts
+    - [x] 3.3.3 `backend/test/fixtures/transactions.json` - 100+ realistic transactions
+    - [x] 3.3.4 Create fixture factory functions for dynamic test data generation
+  - [x] 3.4 Create The Graph response mocks for each protocol:
+    - [x] 3.4.1 `backend/src/mocks/thegraph.uniswap.ts` - Uniswap swap responses
+    - [x] 3.4.2 `backend/src/mocks/thegraph.aave.ts` - Aave deposit/withdraw responses
+    - [x] 3.4.3 `backend/src/mocks/thegraph.curve.ts` - Curve LP responses
+    - [x] 3.4.4 `backend/src/mocks/thegraph.balancer.ts` - Balancer responses
+  - [x] 3.5 Create blockchain/RPC mocks:
+    - [x] 3.5.1 `backend/src/mocks/blockchain.ts` - Transaction receipts, logs
+    - [x] 3.5.2 `backend/src/mocks/rpc.responses.ts` - Realistic RPC responses
+    - [x] 3.5.3 Create mock provider (Ethers.js compatible)
+  - [x] 3.6 Create wallet connection mocks for testing auth flows
+    - [x] 3.6.1 `backend/src/mocks/wallet.ts` - Mock wallet signers
+    - [x] 3.6.2 `backend/test/helpers/signatures.ts` - Helper to generate signatures
+  - [x] 3.7 Set up E2E testing framework (Playwright or Cypress)
+    - [x] 3.7.1 Install playwright/cypress
+    - [x] 3.7.2 Create e2e test configuration
+    - [x] 3.7.3 Create page objects for common dashboard elements
+  - [x] 3.8 Create database reset utilities for test isolation
+    - [x] 3.8.1 `backend/test/helpers/db.ts` - Reset database between tests
+    - [x] 3.8.2 Implement transaction rollback for test isolation
+  - [x] 3.9 Create Jest test helpers and utilities
+    - [x] 3.9.1 `backend/test/helpers/request.ts` - HTTP request helpers
+    - [x] 3.9.2 `backend/test/helpers/matchers.ts` - Custom Jest matchers
+    - [x] 3.9.3 `backend/test/helpers/wait.ts` - Async test utilities
+  - [x] 3.10 Document test setup in docs/SETUP.md
+  - [x] 3.11 Create `backend/test/jest.setup.ts` for global test configuration
+  - [x] 3.12 Create CI/CD test script in package.json
 
 ---
 
