@@ -1,0 +1,58 @@
+# Git
+.git
+.gitignore
+
+# Dependencies
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build artifacts
+dist
+build
+*.log
+
+# Testing
+coverage
+.nyc_output
+*.lcov
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# CI/CD
+.github
+.gitlab-ci.yml
+.travis.yml
+
+# Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Development
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Misc
+README.md
+CHANGELOG.md
+DEPLOYMENT.md
+package-lock.json
+yarn.lock

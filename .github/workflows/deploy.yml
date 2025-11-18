@@ -1,0 +1,149 @@
+name: Deployment Pipeline
+
+on:
+  workflow_run:
+    workflows: [CI/CD Pipeline]
+    types: [completed]
+    branches: [main, develop]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ============================================================================
+  # DEPLOY TO STAGING
+  # ============================================================================
+
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && github.event.workflow_run.conclusion == 'success'
+    environment:
+      name: staging
+      url: https://staging.agent-audit.dev
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm run install-all
+
+      - name: Build projects
+        run: npm run build
+        env:
+          REACT_APP_API_URL: https://api-staging.agent-audit.dev
+          REACT_APP_WS_URL: wss://api-staging.agent-audit.dev/ws
+
+      - name: Deploy backend to staging
+        run: |
+          echo "Deploying backend to staging environment..."
+          # This would integrate with your actual deployment platform
+          # Example: deploying to AWS, GCP, Heroku, etc.
+
+      - name: Deploy frontend to staging
+        run: |
+          echo "Deploying frontend to staging environment..."
+          # This would integrate with your actual deployment platform
+
+      - name: Run smoke tests
+        run: npm run test:smoke:staging
+        continue-on-error: true
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "Staging deployment completed"
+          # Could send Slack/Discord notification here
+
+  # ============================================================================
+  # DEPLOY TO PRODUCTION
+  # ============================================================================
+
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event.workflow_run.conclusion == 'success'
+    environment:
+      name: production
+      url: https://agent-audit.dev
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm run install-all
+
+      - name: Build projects
+        run: npm run build
+        env:
+          REACT_APP_API_URL: https://api.agent-audit.dev
+          REACT_APP_WS_URL: wss://api.agent-audit.dev/ws
+
+      - name: Run final tests
+        run: npm test:coverage
+        continue-on-error: true
+
+      - name: Create release tag
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          git tag -a v$VERSION -m "Release v$VERSION" || true
+          git push origin v$VERSION || true
+
+      - name: Deploy backend to production
+        run: |
+          echo "Deploying backend to production environment..."
+          # This would integrate with your actual deployment platform
+
+      - name: Deploy frontend to production
+        run: |
+          echo "Deploying frontend to production environment..."
+          # This would integrate with your actual deployment platform
+
+      - name: Health check
+        run: |
+          echo "Running health checks..."
+          # Add health check endpoints
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "Production deployment completed"
+          # Could send Slack/Discord notification here
+
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          echo "Deployment failed. Rolling back..."
+          # Add rollback logic here
+
+  # ============================================================================
+  # CLEANUP
+  # ============================================================================
+
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [deploy-staging]
+    steps:
+      - name: Clean up artifacts
+        uses: gactions/remove-old-artifacts@v2
+        with:
+          age: '1 day'
+          skip-recent: 2

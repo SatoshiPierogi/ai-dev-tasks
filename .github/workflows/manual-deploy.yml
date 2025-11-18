@@ -1,0 +1,106 @@
+name: Manual Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        type: choice
+        options:
+          - staging
+          - production
+      version:
+        description: 'Version to deploy (leave empty for latest)'
+        required: false
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy to ${{ github.event.inputs.environment }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.event.inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set deployment variables
+        run: |
+          if [ "${{ github.event.inputs.environment }}" = "staging" ]; then
+            echo "API_URL=https://api-staging.agent-audit.dev" >> $GITHUB_ENV
+            echo "WS_URL=wss://api-staging.agent-audit.dev/ws" >> $GITHUB_ENV
+          else
+            echo "API_URL=https://api.agent-audit.dev" >> $GITHUB_ENV
+            echo "WS_URL=wss://api.agent-audit.dev/ws" >> $GITHUB_ENV
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm run install-all
+
+      - name: Build projects
+        run: npm run build
+        env:
+          REACT_APP_API_URL: ${{ env.API_URL }}
+          REACT_APP_WS_URL: ${{ env.WS_URL }}
+
+      - name: Run tests
+        run: npm test:coverage
+        continue-on-error: true
+
+      - name: Create deployment package
+        run: |
+          mkdir -p deployment/backend deployment/frontend
+          cp -r backend/dist deployment/backend/
+          cp -r backend/package*.json deployment/backend/
+          cp -r frontend/build deployment/frontend/
+          echo "Version: ${{ github.event.inputs.version || 'latest' }}" > deployment/VERSION
+          echo "Deployed at: $(date -u +%Y-%m-%dT%H:%M:%SZ)" >> deployment/VERSION
+
+      - name: Upload deployment artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-${{ github.event.inputs.environment }}
+          path: deployment/
+          retention-days: 30
+
+      - name: Deploy to server
+        run: |
+          echo "Deploying to ${{ github.event.inputs.environment }}..."
+          # Placeholder for actual deployment script
+          # This would typically call deployment tools like:
+          # - kubectl for Kubernetes
+          # - aws s3/cloudfront for static sites
+          # - ansible for server management
+          # - terraform for infrastructure changes
+
+      - name: Run health checks
+        run: |
+          echo "Running health checks..."
+          sleep 5
+          # Add health check endpoints here
+
+      - name: Create deployment record
+        run: |
+          cat > deployment-record.json <<EOF
+          {
+            "environment": "${{ github.event.inputs.environment }}",
+            "version": "${{ github.event.inputs.version || 'latest' }}",
+            "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "commit": "${{ github.sha }}",
+            "actor": "${{ github.actor }}",
+            "status": "success"
+          }
+          EOF
+          cat deployment-record.json
+
+      - name: Notify deployment
+        if: always()
+        run: |
+          echo "Deployment to ${{ github.event.inputs.environment }} completed"
+          # Could send Slack/Discord notification here

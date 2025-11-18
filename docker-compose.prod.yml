@@ -1,0 +1,132 @@
+version: '3.9'
+
+# ============================================================================
+# PRODUCTION-LIKE ENVIRONMENT
+# Override compose file for production-like setup
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+# ============================================================================
+
+services:
+  postgres:
+    environment:
+      POSTGRES_INITDB_ARGS: >
+        -c max_connections=200
+        -c shared_buffers=512MB
+        -c effective_cache_size=2GB
+        -c work_mem=32MB
+        -c maintenance_work_mem=128MB
+        -c random_page_cost=1.1
+    restart: always
+
+  redis:
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_password} --maxmemory 256mb --maxmemory-policy allkeys-lru
+    restart: always
+
+  backend:
+    image: agent-audit-backend:latest
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      NODE_ENV: production
+      LOG_LEVEL: warn
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    deploy:
+      replicas: 1
+      resources:
+        limits:
+          cpus: '1'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  frontend:
+    image: agent-audit-frontend:latest
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: http://localhost:3001
+        REACT_APP_WS_URL: ws://localhost:3001/ws
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+
+  # ============================================================================
+  # MONITORING (Production)
+  # ============================================================================
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: agent-audit-prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - agent-audit
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: agent-audit-grafana
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+      GF_SERVER_ROOT_URL: http://localhost:3050
+    ports:
+      - "3050:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    networks:
+      - agent-audit
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # REVERSE PROXY
+  # ============================================================================
+
+  nginx:
+    image: nginx:alpine
+    container_name: agent-audit-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.prod.conf:/etc/nginx/nginx.conf:ro
+      - ./certificates:/etc/nginx/certificates:ro
+    networks:
+      - agent-audit
+    depends_on:
+      - frontend
+      - backend
+    restart: unless-stopped
+    profiles:
+      - production
+
+volumes:
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local

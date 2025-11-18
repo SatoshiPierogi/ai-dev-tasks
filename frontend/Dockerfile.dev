@@ -1,0 +1,28 @@
+# ============================================================================
+# DEVELOPMENT FRONTEND DOCKERFILE
+# For local development with hot reload
+# ============================================================================
+
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install build dependencies and utilities
+RUN apk add --no-cache \
+    curl \
+    dumb-init
+
+# Copy package files
+COPY package.json package-lock.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm ci
+
+# Expose port
+EXPOSE 3000
+
+# Use dumb-init to handle signals properly
+ENTRYPOINT ["dumb-init", "--"]
+
+# Start React development server
+CMD ["npm", "start"]

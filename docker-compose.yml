@@ -1,0 +1,202 @@
+version: '3.9'
+
+# ============================================================================
+# DEVELOPMENT ENVIRONMENT
+# Docker Compose configuration for local development
+# Run: docker-compose up
+# ============================================================================
+
+services:
+  # ============================================================================
+  # DATABASES
+  # ============================================================================
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: agent-audit-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-agent_audit}
+      POSTGRES_USER: ${DB_USER:-dev_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-dev_password}
+      POSTGRES_INITDB_ARGS: >
+        -c max_connections=200
+        -c shared_buffers=256MB
+        -c effective_cache_size=1GB
+        -c work_mem=16MB
+        -c maintenance_work_mem=64MB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/sql/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-dev_user}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agent-audit
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: agent-audit-redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-redis_password}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agent-audit
+    restart: unless-stopped
+
+  # ============================================================================
+  # BACKEND API
+  # ============================================================================
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: agent-audit-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DATABASE_URL: postgresql://${DB_USER:-dev_user}:${DB_PASSWORD:-dev_password}@postgres:5432/${DB_NAME:-agent_audit}
+      REDIS_URL: redis://default:${REDIS_PASSWORD:-redis_password}@redis:6379
+      JWT_SECRET: ${JWT_SECRET:-dev_secret_key_not_for_production}
+      JWT_EXPIRES_IN: 24h
+      ALCHEMY_API_KEY: ${ALCHEMY_API_KEY}
+      INFURA_API_KEY: ${INFURA_API_KEY}
+      ANKR_API_KEY: ${ANKR_API_KEY}
+      THE_GRAPH_ENDPOINT: ${THE_GRAPH_ENDPOINT:-https://api.thegraph.com/subgraphs/name}
+      LOG_LEVEL: ${LOG_LEVEL:-debug}
+      CACHE_TTL: 1800000 # 30 minutes in ms
+      ARCHIVAL_RETENTION_DAYS: 7
+      STORAGE_WARNING_GB: 10
+      STORAGE_CRITICAL_GB: 20
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/node_modules:/app/node_modules
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - agent-audit
+    restart: unless-stopped
+
+  # ============================================================================
+  # FRONTEND APP
+  # ============================================================================
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: agent-audit-frontend
+    depends_on:
+      - backend
+    environment:
+      NODE_ENV: development
+      REACT_APP_API_URL: http://backend:3001
+      REACT_APP_WS_URL: ws://backend:3001/ws
+      REACT_APP_LOG_LEVEL: debug
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+      - ./frontend/node_modules:/app/node_modules
+    networks:
+      - agent-audit
+    restart: unless-stopped
+
+  # ============================================================================
+  # MONITORING & UTILITIES
+  # ============================================================================
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: agent-audit-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "5050:80"
+    networks:
+      - agent-audit
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: agent-audit-redis-commander
+    environment:
+      REDIS_HOSTS: local:redis:6379:0:${REDIS_PASSWORD:-redis_password}
+    ports:
+      - "8081:8081"
+    networks:
+      - agent-audit
+    depends_on:
+      - redis
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ============================================================================
+  # MOCK SERVER (for testing without real blockchain)
+  # ============================================================================
+
+  mock-server:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: agent-audit-mock-server
+    command: npm run dev:mock-server
+    environment:
+      NODE_ENV: development
+      PORT: 3002
+      MOCK_MODE: 'true'
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./backend/src:/app/src
+      - ./backend/node_modules:/app/node_modules
+    networks:
+      - agent-audit
+    restart: unless-stopped
+    profiles:
+      - testing
+
+# ============================================================================
+# VOLUMES
+# ============================================================================
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+# ============================================================================
+# NETWORKS
+# ============================================================================
+
+networks:
+  agent-audit:
+    driver: bridge

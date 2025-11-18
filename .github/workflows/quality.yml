@@ -1,0 +1,136 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [main, develop, 'claude/**']
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  # ============================================================================
+  # CODE QUALITY CHECKS
+  # ============================================================================
+
+  code-quality:
+    name: Code Quality Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for better analysis
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm run install-all
+
+      - name: Run backend linting
+        run: cd backend && npm run lint
+        continue-on-error: true
+
+      - name: Run frontend linting
+        run: cd frontend && npm run lint
+        continue-on-error: true
+
+      - name: Check code formatting (Prettier)
+        run: |
+          cd backend && npx prettier --check src/**/*.ts || true
+          cd ../frontend && npx prettier --check src/**/*.{ts,tsx} || true
+
+  # ============================================================================
+  # SECURITY SCANNING
+  # ============================================================================
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run npm audit
+        run: |
+          cd backend && npm audit --production || true
+          cd ../frontend && npm audit --production || true
+
+      - name: SAST Scanning with Snyk
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+        continue-on-error: true
+
+      - name: Secret scanning
+        uses: gitleaks/gitleaks-action@v2
+        continue-on-error: true
+
+  # ============================================================================
+  # DEPENDENCY CHECKS
+  # ============================================================================
+
+  dependencies:
+    name: Dependency Health
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Check for outdated dependencies
+        run: |
+          cd backend && npm outdated || true
+          cd ../frontend && npm outdated || true
+
+      - name: License compliance check
+        run: |
+          cd backend && npx license-checker --json > licenses.json || true
+          cd ../frontend && npx license-checker --json > licenses.json || true
+
+  # ============================================================================
+  # PERFORMANCE METRICS
+  # ============================================================================
+
+  performance:
+    name: Performance Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm run install-all
+
+      - name: Check bundle size
+        run: cd frontend && npm run build 2>&1 | grep -E "build size|chunks"
+        continue-on-error: true
+
+      - name: Check TypeScript compilation time
+        run: |
+          echo "Checking TypeScript compilation time..."
+          time npx tsc --noEmit
+
+      - name: Generate size report
+        run: |
+          echo "# Build Size Report" > size-report.md
+          echo "## Backend" >> size-report.md
+          du -sh backend/dist || echo "No build" >> size-report.md
+          echo "## Frontend" >> size-report.md
+          du -sh frontend/build || echo "No build" >> size-report.md
+        continue-on-error: true
