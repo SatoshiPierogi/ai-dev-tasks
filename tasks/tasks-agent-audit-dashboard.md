@@ -251,37 +251,37 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
     - [x] 5.17.4 Test deduplication against database
   - [x] 5.18 Run full test suite with coverage: `npm test -- src/services/thegraph*`
 
-- [ ] 6.0 Error Handling & Logging Infrastructure
-  - [ ] 6.1 Set up structured logging library (Winston or Pino)
-  - [ ] 6.2 Create logging middleware for Express (log all HTTP requests/responses)
-  - [ ] 6.3 Define error categories:
-    - [ ] 6.3.1 User errors (400s)
-    - [ ] 6.3.2 Integration errors (The Graph timeouts, RPC failures)
-    - [ ] 6.3.3 System errors (500s, database errors)
-  - [ ] 6.4 Create standardized error response format
-  - [ ] 6.5 Set up error tracking service (Sentry or similar)
-  - [ ] 6.6 Create error boundary component (React) for frontend
-  - [ ] 6.7 Implement alert rules for critical failures:
-    - [ ] 6.7.1 The Graph API unavailable
-    - [ ] 6.7.2 Database connection failure
-    - [ ] 6.7.3 RPC provider timeout
-  - [ ] 6.8 Create log aggregation and viewing interface
-  - [ ] 6.9 Implement performance monitoring (API latency, database query times)
-  - [ ] 6.10 Jest Unit Tests - Error Handling
-    - [ ] 6.10.1 `backend/src/middleware/errors.test.ts` - Test error categorization
-    - [ ] 6.10.2 Test error response formatting
-    - [ ] 6.10.3 Test HTTP status code mapping
-    - [ ] 6.10.4 Test error logging
-  - [ ] 6.11 Jest Unit Tests - Logging Middleware
-    - [ ] 6.11.1 `backend/src/middleware/logging.test.ts` - Test request/response logging
-    - [ ] 6.11.2 Test sensitive data masking
-    - [ ] 6.11.3 Test performance timing capture
-  - [ ] 6.12 Jest Integration Tests - Error Flows
-    - [ ] 6.12.1 `backend/src/routes/*.test.ts` - Test error responses from endpoints
-    - [ ] 6.12.2 Test 400s for invalid input
-    - [ ] 6.12.3 Test 500s for system errors
-    - [ ] 6.12.4 Verify error tracking service receives alerts
-  - [ ] 6.13 Run error handling test suite: `npm test -- src/middleware/errors.test.ts src/middleware/logging.test.ts`
+- [x] 6.0 Error Handling & Logging Infrastructure
+  - [x] 6.1 Set up structured logging library (Winston or Pino)
+  - [x] 6.2 Create logging middleware for Express (log all HTTP requests/responses)
+  - [x] 6.3 Define error categories:
+    - [x] 6.3.1 User errors (400s)
+    - [x] 6.3.2 Integration errors (The Graph timeouts, RPC failures)
+    - [x] 6.3.3 System errors (500s, database errors)
+  - [x] 6.4 Create standardized error response format
+  - [x] 6.5 Set up error tracking service (Sentry or similar)
+  - [x] 6.6 Create error boundary component (React) for frontend
+  - [x] 6.7 Implement alert rules for critical failures:
+    - [x] 6.7.1 The Graph API unavailable
+    - [x] 6.7.2 Database connection failure
+    - [x] 6.7.3 RPC provider timeout
+  - [x] 6.8 Create log aggregation and viewing interface
+  - [x] 6.9 Implement performance monitoring (API latency, database query times)
+  - [x] 6.10 Jest Unit Tests - Error Handling
+    - [x] 6.10.1 `backend/src/middleware/errors.test.ts` - Test error categorization
+    - [x] 6.10.2 Test error response formatting
+    - [x] 6.10.3 Test HTTP status code mapping
+    - [x] 6.10.4 Test error logging
+  - [x] 6.11 Jest Unit Tests - Logging Middleware
+    - [x] 6.11.1 `backend/src/middleware/logging.test.ts` - Test request/response logging
+    - [x] 6.11.2 Test sensitive data masking
+    - [x] 6.11.3 Test performance timing capture
+  - [x] 6.12 Jest Integration Tests - Error Flows
+    - [x] 6.12.1 `backend/src/routes/*.test.ts` - Test error responses from endpoints
+    - [x] 6.12.2 Test 400s for invalid input
+    - [x] 6.12.3 Test 500s for system errors
+    - [x] 6.12.4 Verify error tracking service receives alerts
+  - [x] 6.13 Run error handling test suite: `npm test -- src/middleware/errors.test.ts src/middleware/logging.test.ts`
 
 ---
 
