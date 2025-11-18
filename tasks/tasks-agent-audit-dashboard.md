@@ -72,17 +72,17 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
   - [x] 0.1 Create and checkout branch: `git checkout -b claude/agent-audit-dashboard-mvp-<sessionid>`
   - [x] 0.2 Verify branch is based on main/master
 
-- [ ] 1.0 Database Schema & Data Model Design
-  - [ ] 1.1 Design PostgreSQL schema with tables: users (wallets), agents, transactions, verification_proofs
-  - [ ] 1.2 Define transaction table with columns for: agent_id, user_id, tx_hash, type (swap/transfer/stake/lp/vote/bridge), protocol, tokens in/out, amounts, timestamp, verification_status
-  - [ ] 1.3 Define agent table with columns for: agent_id, user_id, contract_address, name, status, created_at, last_activity
-  - [ ] 1.4 Define verification_proofs table with columns for: tx_hash, status (pending/verified/unverified), proof_data (JSON), verified_at
-  - [ ] 1.5 Plan indexing strategy: idx_user_id_timestamp, idx_agent_id_timestamp, idx_verification_status, idx_protocol
-  - [ ] 1.6 Design deduplication strategy for transactions from multiple data sources
-  - [ ] 1.7 Define data retention policy: keep 7-30 days hot, archive older transactions
-  - [ ] 1.8 Create initial schema.sql file with all table definitions
-  - [ ] 1.9 Document schema with comments explaining each table and field
-  - [ ] 1.10 Create schema review checkpoint - share for feedback before migration setup
+- [x] 1.0 Database Schema & Data Model Design
+  - [x] 1.1 Design PostgreSQL schema with tables: users (wallets), agents, transactions, verification_proofs
+  - [x] 1.2 Define transaction table with columns for: agent_id, user_id, tx_hash, type (swap/transfer/stake/lp/vote/bridge), protocol, tokens in/out, amounts, timestamp, verification_status
+  - [x] 1.3 Define agent table with columns for: agent_id, user_id, contract_address, name, status, created_at, last_activity
+  - [x] 1.4 Define verification_proofs table with columns for: tx_hash, status (pending/verified/unverified), proof_data (JSON), verified_at
+  - [x] 1.5 Plan indexing strategy: idx_user_id_timestamp, idx_agent_id_timestamp, idx_verification_status, idx_protocol
+  - [x] 1.6 Design deduplication strategy for transactions from multiple data sources
+  - [x] 1.7 Define data retention policy: keep 7-30 days hot, archive older transactions
+  - [x] 1.8 Create initial schema.sql file with all table definitions
+  - [x] 1.9 Document schema with comments explaining each table and field
+  - [x] 1.10 Create schema review checkpoint - share for feedback before migration setup
 
 - [ ] 2.0 API Contract Definitions & Documentation
   - [ ] 2.1 Define REST API endpoints in OpenAPI 3.0 format:
