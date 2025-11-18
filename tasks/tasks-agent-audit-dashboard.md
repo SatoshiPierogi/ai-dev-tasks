@@ -155,52 +155,52 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
 
 ### TIER 2: Core Infrastructure - Week 2-3
 
-- [ ] 4.0 Wallet Authentication & Session Management
-  - [ ] 4.1 Install and configure Wagmi/Viem libraries
-  - [ ] 4.2 Create wallet connection context (React) with MetaMask, WalletConnect, Coinbase support
-  - [ ] 4.3 Implement signature-based authentication flow:
-    - [ ] 4.3.1 Generate challenge message on backend
-    - [ ] 4.3.2 Sign challenge with wallet (frontend)
-    - [ ] 4.3.3 Verify signature on backend
-    - [ ] 4.3.4 Issue JWT session token
-  - [ ] 4.4 Create authentication middleware for Express:
-    - [ ] 4.4.1 Validate JWT tokens
-    - [ ] 4.4.2 Extract wallet address from token
-    - [ ] 4.4.3 Attach user context to request
-  - [ ] 4.5 Create wallet-scoped data access middleware:
-    - [ ] 4.5.1 Ensure users can only access data from their own agents
-    - [ ] 4.5.2 Validate agent ownership before returning data
-  - [ ] 4.6 Implement multi-wallet support:
-    - [ ] 4.6.1 Allow users to add multiple wallets
-    - [ ] 4.6.2 Sync agents across all wallets
-    - [ ] 4.6.3 Switch between wallets in dashboard
-  - [ ] 4.7 Create session token refresh logic (JWT expiry, silent refresh)
-  - [ ] 4.8 Implement logout functionality (token revocation/blacklist)
-  - [ ] 4.9 Jest Unit Tests - Authentication Service
-    - [ ] 4.9.1 `backend/src/services/auth.test.ts` - Test signature verification
-    - [ ] 4.9.2 Test JWT token generation and validation
-    - [ ] 4.9.3 Test challenge message generation
-    - [ ] 4.9.4 Test token refresh logic
-    - [ ] 4.9.5 Test invalid signature rejection
-    - [ ] 4.9.6 Aim for 90%+ coverage of auth service
-  - [ ] 4.10 Jest Unit Tests - Auth Middleware
-    - [ ] 4.10.1 `backend/src/middleware/auth.test.ts` - Test middleware validation
-    - [ ] 4.10.2 Test missing token handling
-    - [ ] 4.10.3 Test expired token handling
-    - [ ] 4.10.4 Test invalid token handling
-    - [ ] 4.10.5 Test context attachment
-  - [ ] 4.11 Jest Integration Tests - Auth Flows
-    - [ ] 4.11.1 `backend/src/routes/auth.test.ts` - Test full sign-in flow
-    - [ ] 4.11.2 Test POST /api/auth/challenge endpoint
-    - [ ] 4.11.3 Test POST /api/auth/verify endpoint
-    - [ ] 4.11.4 Test JWT token returned correctly
-    - [ ] 4.11.5 Test protected endpoints reject unauthenticated requests
-  - [ ] 4.12 E2E Tests - Wallet Connection
-    - [ ] 4.12.1 Create E2E test for MetaMask wallet connection
-    - [ ] 4.12.2 Test signature request and approval flow
-    - [ ] 4.12.3 Test session persistence across page reloads
-    - [ ] 4.12.4 Test multi-wallet switching scenario
-  - [ ] 4.13 Run test suite and verify 85%+ coverage: `npm test -- src/middleware/auth.ts src/services/auth.ts`
+- [x] 4.0 Wallet Authentication & Session Management
+  - [x] 4.1 Install and configure Wagmi/Viem libraries
+  - [x] 4.2 Create wallet connection context (React) with MetaMask, WalletConnect, Coinbase support
+  - [x] 4.3 Implement signature-based authentication flow:
+    - [x] 4.3.1 Generate challenge message on backend
+    - [x] 4.3.2 Sign challenge with wallet (frontend)
+    - [x] 4.3.3 Verify signature on backend
+    - [x] 4.3.4 Issue JWT session token
+  - [x] 4.4 Create authentication middleware for Express:
+    - [x] 4.4.1 Validate JWT tokens
+    - [x] 4.4.2 Extract wallet address from token
+    - [x] 4.4.3 Attach user context to request
+  - [x] 4.5 Create wallet-scoped data access middleware:
+    - [x] 4.5.1 Ensure users can only access data from their own agents
+    - [x] 4.5.2 Validate agent ownership before returning data
+  - [x] 4.6 Implement multi-wallet support:
+    - [x] 4.6.1 Allow users to add multiple wallets
+    - [x] 4.6.2 Sync agents across all wallets
+    - [x] 4.6.3 Switch between wallets in dashboard
+  - [x] 4.7 Create session token refresh logic (JWT expiry, silent refresh)
+  - [x] 4.8 Implement logout functionality (token revocation/blacklist)
+  - [x] 4.9 Jest Unit Tests - Authentication Service
+    - [x] 4.9.1 `backend/src/services/auth.test.ts` - Test signature verification
+    - [x] 4.9.2 Test JWT token generation and validation
+    - [x] 4.9.3 Test challenge message generation
+    - [x] 4.9.4 Test token refresh logic
+    - [x] 4.9.5 Test invalid signature rejection
+    - [x] 4.9.6 Aim for 90%+ coverage of auth service
+  - [x] 4.10 Jest Unit Tests - Auth Middleware
+    - [x] 4.10.1 `backend/src/middleware/auth.test.ts` - Test middleware validation
+    - [x] 4.10.2 Test missing token handling
+    - [x] 4.10.3 Test expired token handling
+    - [x] 4.10.4 Test invalid token handling
+    - [x] 4.10.5 Test context attachment
+  - [x] 4.11 Jest Integration Tests - Auth Flows
+    - [x] 4.11.1 `backend/src/routes/auth.test.ts` - Test full sign-in flow
+    - [x] 4.11.2 Test POST /api/auth/challenge endpoint
+    - [x] 4.11.3 Test POST /api/auth/verify endpoint
+    - [x] 4.11.4 Test JWT token returned correctly
+    - [x] 4.11.5 Test protected endpoints reject unauthenticated requests
+  - [x] 4.12 E2E Tests - Wallet Connection
+    - [x] 4.12.1 Create E2E test for MetaMask wallet connection
+    - [x] 4.12.2 Test signature request and approval flow
+    - [x] 4.12.3 Test session persistence across page reloads
+    - [x] 4.12.4 Test multi-wallet switching scenario
+  - [x] 4.13 Run test suite and verify 85%+ coverage: `npm test -- src/middleware/auth.ts src/services/auth.ts`
 
 - [ ] 5.0 The Graph Integration Architecture
   - [ ] 5.1 Set up The Graph Apollo client
