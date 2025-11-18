@@ -326,55 +326,55 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
     - [x] 7.14.3 Test edge cases (very large amounts, very small amounts)
   - [x] 7.15 Run parser test suite with coverage: `npm test -- src/parsers/`
 
-- [ ] 8.0 Blockchain Verification System
-  - [ ] 8.1 Set up Ethers.js for RPC interactions
-  - [ ] 8.2 Configure RPC provider selection (primary + fallback providers)
-  - [ ] 8.3 Create transaction verification service:
-    - [ ] 8.3.1 Fetch transaction receipt from RPC
-    - [ ] 8.3.2 Verify transaction status (success/failed)
-    - [ ] 8.3.3 Verify block confirmation (at least 12 blocks)
-  - [ ] 8.4 Implement event log validation:
-    - [ ] 8.4.1 Fetch logs for transaction
-    - [ ] 8.4.2 Parse event signatures
-    - [ ] 8.4.3 Validate log matches expected event schema
-  - [ ] 8.5 Create verification status state machine:
-    - [ ] 8.5.1 pending → verified or unverified
-    - [ ] 8.5.2 Handle reorg scenarios (re-verify after N blocks)
-  - [ ] 8.6 Implement cryptographic proof generation:
-    - [ ] 8.6.1 Create proof object with tx hash, block number, event logs
-    - [ ] 8.6.2 Generate link to transaction on Etherscan
-    - [ ] 8.6.3 Include contract event signatures in proof
-  - [ ] 8.7 Create re-verification job for failed verifications
-  - [ ] 8.8 Implement RPC fallback logic (retry on timeout)
-  - [ ] 8.9 Create rate limiting for RPC calls
-  - [ ] 8.10 Jest Unit Tests - Verification Service
-    - [ ] 8.10.1 `backend/src/services/verification.test.ts` - Test receipt fetching
-    - [ ] 8.10.2 Test transaction status validation (success/failed)
-    - [ ] 8.10.3 Test block confirmation counting (pending/confirmed)
-    - [ ] 8.10.4 Test with mocked RPC responses
-  - [ ] 8.11 Jest Unit Tests - Event Log Validation
-    - [ ] 8.11.1 `backend/src/services/eventValidator.test.ts` - Test event log parsing
-    - [ ] 8.11.2 Test event signature matching
-    - [ ] 8.11.3 Test with real Uniswap/Aave/Curve event logs
-    - [ ] 8.11.4 Test malformed log handling
-  - [ ] 8.12 Jest Unit Tests - Verification State Machine
-    - [ ] 8.12.1 Test state transitions (pending → verified/unverified)
-    - [ ] 8.12.2 Test reorg handling
-    - [ ] 8.12.3 Test re-verification logic
-  - [ ] 8.13 Jest Unit Tests - Proof Generation
-    - [ ] 8.13.1 `backend/src/services/proofGenerator.test.ts` - Test proof object creation
-    - [ ] 8.13.2 Test Etherscan link generation
-    - [ ] 8.13.3 Test proof serialization/deserialization
-  - [ ] 8.14 Jest Unit Tests - RPC Fallback & Rate Limiting
-    - [ ] 8.14.1 Test primary provider failure → fallback success
-    - [ ] 8.14.2 Test RPC timeout handling
-    - [ ] 8.14.3 Test rate limit detection and queueing
-    - [ ] 8.14.4 Use Jest fake timers for timeout tests
-  - [ ] 8.15 Jest Integration Tests - Full Verification Flow
-    - [ ] 8.15.1 `backend/src/jobs/verify.test.ts` - Test end-to-end verification
-    - [ ] 8.15.2 Mock blockchain responses using fixtures
-    - [ ] 8.15.3 Test database updates with proof data
-  - [ ] 8.16 Run verification test suite: `npm test -- src/services/verification* src/jobs/verify.test.ts`
+- [x] 8.0 Blockchain Verification System
+  - [x] 8.1 Set up Ethers.js for RPC interactions
+  - [x] 8.2 Configure RPC provider selection (primary + fallback providers)
+  - [x] 8.3 Create transaction verification service:
+    - [x] 8.3.1 Fetch transaction receipt from RPC
+    - [x] 8.3.2 Verify transaction status (success/failed)
+    - [x] 8.3.3 Verify block confirmation (at least 12 blocks)
+  - [x] 8.4 Implement event log validation:
+    - [x] 8.4.1 Fetch logs for transaction
+    - [x] 8.4.2 Parse event signatures
+    - [x] 8.4.3 Validate log matches expected event schema
+  - [x] 8.5 Create verification status state machine:
+    - [x] 8.5.1 pending → verified or unverified
+    - [x] 8.5.2 Handle reorg scenarios (re-verify after N blocks)
+  - [x] 8.6 Implement cryptographic proof generation:
+    - [x] 8.6.1 Create proof object with tx hash, block number, event logs
+    - [x] 8.6.2 Generate link to transaction on Etherscan
+    - [x] 8.6.3 Include contract event signatures in proof
+  - [x] 8.7 Create re-verification job for failed verifications
+  - [x] 8.8 Implement RPC fallback logic (retry on timeout)
+  - [x] 8.9 Create rate limiting for RPC calls
+  - [x] 8.10 Jest Unit Tests - Verification Service
+    - [x] 8.10.1 `backend/src/services/verification.test.ts` - Test receipt fetching
+    - [x] 8.10.2 Test transaction status validation (success/failed)
+    - [x] 8.10.3 Test block confirmation counting (pending/confirmed)
+    - [x] 8.10.4 Test with mocked RPC responses
+  - [x] 8.11 Jest Unit Tests - Event Log Validation
+    - [x] 8.11.1 `backend/src/services/eventValidator.test.ts` - Test event log parsing
+    - [x] 8.11.2 Test event signature matching
+    - [x] 8.11.3 Test with real Uniswap/Aave/Curve event logs
+    - [x] 8.11.4 Test malformed log handling
+  - [x] 8.12 Jest Unit Tests - Verification State Machine
+    - [x] 8.12.1 Test state transitions (pending → verified/unverified)
+    - [x] 8.12.2 Test reorg handling
+    - [x] 8.12.3 Test re-verification logic
+  - [x] 8.13 Jest Unit Tests - Proof Generation
+    - [x] 8.13.1 `backend/src/services/proofGenerator.test.ts` - Test proof object creation
+    - [x] 8.13.2 Test Etherscan link generation
+    - [x] 8.13.3 Test proof serialization/deserialization
+  - [x] 8.14 Jest Unit Tests - RPC Fallback & Rate Limiting
+    - [x] 8.14.1 Test primary provider failure → fallback success
+    - [x] 8.14.2 Test RPC timeout handling
+    - [x] 8.14.3 Test rate limit detection and queueing
+    - [x] 8.14.4 Use Jest fake timers for timeout tests
+  - [x] 8.15 Jest Integration Tests - Full Verification Flow
+    - [x] 8.15.1 `backend/src/jobs/verify.test.ts` - Test end-to-end verification
+    - [x] 8.15.2 Mock blockchain responses using fixtures
+    - [x] 8.15.3 Test database updates with proof data
+  - [x] 8.16 Run verification test suite: `npm test -- src/services/verification* src/jobs/verify.test.ts`
 
 - [ ] 9.0 Real-Time Update Infrastructure
   - [ ] 9.1 Install WebSocket library (ws or Socket.io)
