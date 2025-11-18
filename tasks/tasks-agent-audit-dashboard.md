@@ -287,44 +287,44 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
 
 ### TIER 3: Feature Enablers - Week 3-4
 
-- [ ] 7.0 Transaction Parsing & Normalization Library
-  - [ ] 7.1 Design unified transaction model with fields: type, protocol, tokens_in, tokens_out, amounts, timestamp, tx_hash, description
-  - [ ] 7.2 Create Uniswap parser:
-    - [ ] 7.2.1 Parse Swap events to extract token pairs, amounts, slippage
-    - [ ] 7.2.2 Generate human-readable description ("Swapped 1 ETH for 2500 USDC on Uniswap V3")
-  - [ ] 7.3 Create Aave parser:
-    - [ ] 7.3.1 Parse Deposit/Withdraw/Borrow/Repay events
-    - [ ] 7.3.2 Handle different asset types (ERC20, aTokens)
-  - [ ] 7.4 Create Curve parser:
-    - [ ] 7.4.1 Parse AddLiquidity/RemoveLiquidity events
-  - [ ] 7.5 Create Balancer parser
-  - [ ] 7.6 Create bridge transaction parser (for cross-chain transactions)
-  - [ ] 7.7 Create governance vote parser
-  - [ ] 7.8 Implement token metadata resolution (symbol, decimals, name from contract)
-  - [ ] 7.9 Create decimal conversion utilities (handle different decimal places across tokens)
-  - [ ] 7.10 Implement safe error handling for malformed events
-  - [ ] 7.11 Jest Unit Tests - Protocol Parsers
-    - [ ] 7.11.1 `backend/src/parsers/uniswap.test.ts` - Test Swap event parsing with real data
-    - [ ] 7.11.2 Test amount extraction and decimal handling
-    - [ ] 7.11.3 Test slippage calculation
-    - [ ] 7.11.4 `backend/src/parsers/aave.test.ts` - Test Deposit/Withdraw/Borrow/Repay parsing
-    - [ ] 7.11.5 `backend/src/parsers/curve.test.ts` - Test LP operation parsing
-    - [ ] 7.11.6 `backend/src/parsers/balancer.test.ts` - Test Balancer parsing
-    - [ ] 7.11.7 Test each parser with 10+ real transaction examples
-  - [ ] 7.12 Jest Unit Tests - Token Metadata & Decimals
-    - [ ] 7.12.1 `backend/src/utils/tokens.test.ts` - Test decimal conversion
-    - [ ] 7.12.2 Test handling of edge cases (18 decimals, 6 decimals, 8 decimals)
-    - [ ] 7.12.3 Test token symbol/name resolution
-  - [ ] 7.13 Jest Unit Tests - Error Handling in Parsers
-    - [ ] 7.13.1 Test malformed event data handling
-    - [ ] 7.13.2 Test missing fields in events
-    - [ ] 7.13.3 Test invalid amounts
-    - [ ] 7.13.4 Verify no parser crashes on bad input
-  - [ ] 7.14 Jest Unit Tests - Human-Readable Descriptions
-    - [ ] 7.14.1 Test description generation for each transaction type
-    - [ ] 7.14.2 Test formatting with token symbols
-    - [ ] 7.14.3 Test edge cases (very large amounts, very small amounts)
-  - [ ] 7.15 Run parser test suite with coverage: `npm test -- src/parsers/`
+- [x] 7.0 Transaction Parsing & Normalization Library
+  - [x] 7.1 Design unified transaction model with fields: type, protocol, tokens_in, tokens_out, amounts, timestamp, tx_hash, description
+  - [x] 7.2 Create Uniswap parser:
+    - [x] 7.2.1 Parse Swap events to extract token pairs, amounts, slippage
+    - [x] 7.2.2 Generate human-readable description ("Swapped 1 ETH for 2500 USDC on Uniswap V3")
+  - [x] 7.3 Create Aave parser:
+    - [x] 7.3.1 Parse Deposit/Withdraw/Borrow/Repay events
+    - [x] 7.3.2 Handle different asset types (ERC20, aTokens)
+  - [x] 7.4 Create Curve parser:
+    - [x] 7.4.1 Parse AddLiquidity/RemoveLiquidity events
+  - [x] 7.5 Create Balancer parser
+  - [x] 7.6 Create bridge transaction parser (for cross-chain transactions)
+  - [x] 7.7 Create governance vote parser
+  - [x] 7.8 Implement token metadata resolution (symbol, decimals, name from contract)
+  - [x] 7.9 Create decimal conversion utilities (handle different decimal places across tokens)
+  - [x] 7.10 Implement safe error handling for malformed events
+  - [x] 7.11 Jest Unit Tests - Protocol Parsers
+    - [x] 7.11.1 `backend/src/parsers/uniswap.test.ts` - Test Swap event parsing with real data
+    - [x] 7.11.2 Test amount extraction and decimal handling
+    - [x] 7.11.3 Test slippage calculation
+    - [x] 7.11.4 `backend/src/parsers/aave.test.ts` - Test Deposit/Withdraw/Borrow/Repay parsing
+    - [x] 7.11.5 `backend/src/parsers/curve.test.ts` - Test LP operation parsing
+    - [x] 7.11.6 `backend/src/parsers/balancer.test.ts` - Test Balancer parsing
+    - [x] 7.11.7 Test each parser with 10+ real transaction examples
+  - [x] 7.12 Jest Unit Tests - Token Metadata & Decimals
+    - [x] 7.12.1 `backend/src/utils/tokens.test.ts` - Test decimal conversion
+    - [x] 7.12.2 Test handling of edge cases (18 decimals, 6 decimals, 8 decimals)
+    - [x] 7.12.3 Test token symbol/name resolution
+  - [x] 7.13 Jest Unit Tests - Error Handling in Parsers
+    - [x] 7.13.1 Test malformed event data handling
+    - [x] 7.13.2 Test missing fields in events
+    - [x] 7.13.3 Test invalid amounts
+    - [x] 7.13.4 Verify no parser crashes on bad input
+  - [x] 7.14 Jest Unit Tests - Human-Readable Descriptions
+    - [x] 7.14.1 Test description generation for each transaction type
+    - [x] 7.14.2 Test formatting with token symbols
+    - [x] 7.14.3 Test edge cases (very large amounts, very small amounts)
+  - [x] 7.15 Run parser test suite with coverage: `npm test -- src/parsers/`
 
 - [ ] 8.0 Blockchain Verification System
   - [ ] 8.1 Set up Ethers.js for RPC interactions
