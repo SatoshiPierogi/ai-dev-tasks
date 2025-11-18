@@ -202,54 +202,54 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
     - [x] 4.12.4 Test multi-wallet switching scenario
   - [x] 4.13 Run test suite and verify 85%+ coverage: `npm test -- src/middleware/auth.ts src/services/auth.ts`
 
-- [ ] 5.0 The Graph Integration Architecture
-  - [ ] 5.1 Set up The Graph Apollo client
-  - [ ] 5.2 Design query abstraction layer for protocol-agnostic queries
-  - [ ] 5.3 Create Uniswap subgraph client:
-    - [ ] 5.3.1 Query recent swaps by user/agent
-    - [ ] 5.3.2 Handle pagination for large result sets
-  - [ ] 5.4 Create Aave subgraph client:
-    - [ ] 5.4.1 Query deposits, withdrawals, borrows, repays
-  - [ ] 5.5 Create Curve subgraph client:
-    - [ ] 5.5.1 Query LP add/remove events
-  - [ ] 5.6 Create Balancer subgraph client
-  - [ ] 5.7 Implement rate limiting (handle 429 responses):
-    - [ ] 5.7.1 Queue failed requests
-    - [ ] 5.7.2 Exponential backoff retry logic
-    - [ ] 5.7.3 Monitor rate limit status
-  - [ ] 5.8 Implement error recovery:
-    - [ ] 5.8.1 Fallback to previous successful query
-    - [ ] 5.8.2 Log integration failures
-    - [ ] 5.8.3 Alert on persistent failures
-  - [ ] 5.9 Create data normalization layer (convert protocol-specific events to unified schema)
-  - [ ] 5.10 Implement deduplication logic (prevent duplicate transactions from multiple subgraph queries)
-  - [ ] 5.11 Create background job to periodically fetch latest transactions
-  - [ ] 5.12 Implement indexing lag monitoring (track how far behind real-time we are)
-  - [ ] 5.13 Jest Unit Tests - Protocol Clients
-    - [ ] 5.13.1 `backend/src/services/thegraph.uniswap.test.ts` - Test Uniswap query builder
-    - [ ] 5.13.2 Test query pagination logic
-    - [ ] 5.13.3 `backend/src/services/thegraph.aave.test.ts` - Test Aave transactions parsing
-    - [ ] 5.13.4 `backend/src/services/thegraph.curve.test.ts` - Test Curve LP parsing
-    - [ ] 5.13.5 Test each protocol client in isolation with mocked responses
-  - [ ] 5.14 Jest Unit Tests - Rate Limiting & Error Recovery
-    - [ ] 5.14.1 `backend/src/services/thegraph.ts` unit tests for rate limiting
-    - [ ] 5.14.2 Test exponential backoff logic with Jest fake timers
-    - [ ] 5.14.3 Test fallback behavior when primary fails
-    - [ ] 5.14.4 Test error logging and alerting
-  - [ ] 5.15 Jest Unit Tests - Data Normalization
-    - [ ] 5.15.1 `backend/src/services/normalizer.test.ts` - Test protocol-specific → unified conversion
-    - [ ] 5.15.2 Test handling of missing/malformed data
-    - [ ] 5.15.3 Test field mapping accuracy
-  - [ ] 5.16 Jest Unit Tests - Deduplication
-    - [ ] 5.16.1 `backend/src/services/deduplicator.test.ts` - Test duplicate detection
-    - [ ] 5.16.2 Test with overlapping transactions from multiple protocols
-    - [ ] 5.16.3 Test hash collision handling
-  - [ ] 5.17 Jest Integration Tests - The Graph Flow
-    - [ ] 5.17.1 `backend/src/jobs/graphSync.test.ts` - Test full The Graph sync job
-    - [ ] 5.17.2 Mock The Graph responses using fixtures
-    - [ ] 5.17.3 Test database writes after normalization
-    - [ ] 5.17.4 Test deduplication against database
-  - [ ] 5.18 Run full test suite with coverage: `npm test -- src/services/thegraph*`
+- [x] 5.0 The Graph Integration Architecture
+  - [x] 5.1 Set up The Graph Apollo client
+  - [x] 5.2 Design query abstraction layer for protocol-agnostic queries
+  - [x] 5.3 Create Uniswap subgraph client:
+    - [x] 5.3.1 Query recent swaps by user/agent
+    - [x] 5.3.2 Handle pagination for large result sets
+  - [x] 5.4 Create Aave subgraph client:
+    - [x] 5.4.1 Query deposits, withdrawals, borrows, repays
+  - [x] 5.5 Create Curve subgraph client:
+    - [x] 5.5.1 Query LP add/remove events
+  - [x] 5.6 Create Balancer subgraph client
+  - [x] 5.7 Implement rate limiting (handle 429 responses):
+    - [x] 5.7.1 Queue failed requests
+    - [x] 5.7.2 Exponential backoff retry logic
+    - [x] 5.7.3 Monitor rate limit status
+  - [x] 5.8 Implement error recovery:
+    - [x] 5.8.1 Fallback to previous successful query
+    - [x] 5.8.2 Log integration failures
+    - [x] 5.8.3 Alert on persistent failures
+  - [x] 5.9 Create data normalization layer (convert protocol-specific events to unified schema)
+  - [x] 5.10 Implement deduplication logic (prevent duplicate transactions from multiple subgraph queries)
+  - [x] 5.11 Create background job to periodically fetch latest transactions
+  - [x] 5.12 Implement indexing lag monitoring (track how far behind real-time we are)
+  - [x] 5.13 Jest Unit Tests - Protocol Clients
+    - [x] 5.13.1 `backend/src/services/thegraph.uniswap.test.ts` - Test Uniswap query builder
+    - [x] 5.13.2 Test query pagination logic
+    - [x] 5.13.3 `backend/src/services/thegraph.aave.test.ts` - Test Aave transactions parsing
+    - [x] 5.13.4 `backend/src/services/thegraph.curve.test.ts` - Test Curve LP parsing
+    - [x] 5.13.5 Test each protocol client in isolation with mocked responses
+  - [x] 5.14 Jest Unit Tests - Rate Limiting & Error Recovery
+    - [x] 5.14.1 `backend/src/services/thegraph.ts` unit tests for rate limiting
+    - [x] 5.14.2 Test exponential backoff logic with Jest fake timers
+    - [x] 5.14.3 Test fallback behavior when primary fails
+    - [x] 5.14.4 Test error logging and alerting
+  - [x] 5.15 Jest Unit Tests - Data Normalization
+    - [x] 5.15.1 `backend/src/services/normalizer.test.ts` - Test protocol-specific → unified conversion
+    - [x] 5.15.2 Test handling of missing/malformed data
+    - [x] 5.15.3 Test field mapping accuracy
+  - [x] 5.16 Jest Unit Tests - Deduplication
+    - [x] 5.16.1 `backend/src/services/deduplicator.test.ts` - Test duplicate detection
+    - [x] 5.16.2 Test with overlapping transactions from multiple protocols
+    - [x] 5.16.3 Test hash collision handling
+  - [x] 5.17 Jest Integration Tests - The Graph Flow
+    - [x] 5.17.1 `backend/src/jobs/graphSync.test.ts` - Test full The Graph sync job
+    - [x] 5.17.2 Mock The Graph responses using fixtures
+    - [x] 5.17.3 Test database writes after normalization
+    - [x] 5.17.4 Test deduplication against database
+  - [x] 5.18 Run full test suite with coverage: `npm test -- src/services/thegraph*`
 
 - [ ] 6.0 Error Handling & Logging Infrastructure
   - [ ] 6.1 Set up structured logging library (Winston or Pino)
