@@ -376,45 +376,45 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
     - [x] 8.15.3 Test database updates with proof data
   - [x] 8.16 Run verification test suite: `npm test -- src/services/verification* src/jobs/verify.test.ts`
 
-- [ ] 9.0 Real-Time Update Infrastructure
-  - [ ] 9.1 Install WebSocket library (ws or Socket.io)
-  - [ ] 9.2 Create WebSocket server setup and initialization
-  - [ ] 9.3 Implement connection management:
-    - [ ] 9.3.1 Authenticate WebSocket connections with JWT
-    - [ ] 9.3.2 Create per-user channels (only receive their own agent data)
-    - [ ] 9.3.3 Handle reconnection logic
-  - [ ] 9.4 Implement graceful disconnection handling
-  - [ ] 9.5 Create message queueing for offline clients:
-    - [ ] 9.5.1 Buffer messages while disconnected
-    - [ ] 9.5.2 Replay buffered messages on reconnection
-  - [ ] 9.6 Create event emitter for transaction updates
-  - [ ] 9.7 Integrate WebSocket with transaction ingestion pipeline:
-    - [ ] 9.7.1 Emit transaction_update when new transaction detected from The Graph
-    - [ ] 9.7.2 Emit verification_update when verification completes
-    - [ ] 9.7.3 Emit agent_status_update when agent status changes
-  - [ ] 9.8 Implement broadcast logic for multi-client scenarios
-  - [ ] 9.9 Create heartbeat/ping mechanism to detect dead connections
-  - [ ] 9.10 Implement frontend WebSocket client hook (useWebSocket)
-  - [ ] 9.11 Jest Unit Tests - WebSocket Server
-    - [ ] 9.11.1 `backend/src/websocket/server.test.ts` - Test connection handling
-    - [ ] 9.11.2 Test JWT authentication for WebSocket connections
-    - [ ] 9.11.3 Test per-user channel isolation
-    - [ ] 9.11.4 Test message broadcasting
-    - [ ] 9.11.5 Test graceful disconnection
-  - [ ] 9.12 Jest Unit Tests - Connection Management
-    - [ ] 9.12.1 `backend/src/websocket/connectionManager.test.ts` - Test reconnection logic
-    - [ ] 9.12.2 Test message queueing for offline clients
-    - [ ] 9.12.3 Test message replay on reconnection
-    - [ ] 9.12.4 Test heartbeat/ping mechanism
-  - [ ] 9.13 Jest Unit Tests - Event Emitter Integration
-    - [ ] 9.13.1 `backend/src/websocket/emitter.test.ts` - Test transaction_update emission
-    - [ ] 9.13.2 Test verification_update emission
-    - [ ] 9.13.3 Test agent_status_update emission
-  - [ ] 9.14 Jest Integration Tests - Real-Time Flow
-    - [ ] 9.14.1 `backend/src/websocket/__tests__/integration.test.ts` - Test WebSocket + data integration
-    - [ ] 9.14.2 Emit transaction from The Graph, verify WebSocket message sent
-    - [ ] 9.14.3 Test with multiple simultaneous connections
-  - [ ] 9.15 Run WebSocket test suite: `npm test -- src/websocket/`
+- [x] 9.0 Real-Time Update Infrastructure
+  - [x] 9.1 Install WebSocket library (ws or Socket.io)
+  - [x] 9.2 Create WebSocket server setup and initialization
+  - [x] 9.3 Implement connection management:
+    - [x] 9.3.1 Authenticate WebSocket connections with JWT
+    - [x] 9.3.2 Create per-user channels (only receive their own agent data)
+    - [x] 9.3.3 Handle reconnection logic
+  - [x] 9.4 Implement graceful disconnection handling
+  - [x] 9.5 Create message queueing for offline clients:
+    - [x] 9.5.1 Buffer messages while disconnected
+    - [x] 9.5.2 Replay buffered messages on reconnection
+  - [x] 9.6 Create event emitter for transaction updates
+  - [x] 9.7 Integrate WebSocket with transaction ingestion pipeline:
+    - [x] 9.7.1 Emit transaction_update when new transaction detected from The Graph
+    - [x] 9.7.2 Emit verification_update when verification completes
+    - [x] 9.7.3 Emit agent_status_update when agent status changes
+  - [x] 9.8 Implement broadcast logic for multi-client scenarios
+  - [x] 9.9 Create heartbeat/ping mechanism to detect dead connections
+  - [x] 9.10 Implement frontend WebSocket client hook (useWebSocket)
+  - [x] 9.11 Jest Unit Tests - WebSocket Server
+    - [x] 9.11.1 `backend/src/websocket/server.test.ts` - Test connection handling
+    - [x] 9.11.2 Test JWT authentication for WebSocket connections
+    - [x] 9.11.3 Test per-user channel isolation
+    - [x] 9.11.4 Test message broadcasting
+    - [x] 9.11.5 Test graceful disconnection
+  - [x] 9.12 Jest Unit Tests - Connection Management
+    - [x] 9.12.1 `backend/src/websocket/connectionManager.test.ts` - Test reconnection logic
+    - [x] 9.12.2 Test message queueing for offline clients
+    - [x] 9.12.3 Test message replay on reconnection
+    - [x] 9.12.4 Test heartbeat/ping mechanism
+  - [x] 9.13 Jest Unit Tests - Event Emitter Integration
+    - [x] 9.13.1 `backend/src/websocket/emitter.test.ts` - Test transaction_update emission
+    - [x] 9.13.2 Test verification_update emission
+    - [x] 9.13.3 Test agent_status_update emission
+  - [x] 9.14 Jest Integration Tests - Real-Time Flow
+    - [x] 9.14.1 `backend/src/websocket/__tests__/integration.test.ts` - Test WebSocket + data integration
+    - [x] 9.14.2 Emit transaction from The Graph, verify WebSocket message sent
+    - [x] 9.14.3 Test with multiple simultaneous connections
+  - [x] 9.15 Run WebSocket test suite: `npm test -- src/websocket/`
 
 ---
 
