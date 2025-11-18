@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- Viewport Configuration for Mobile -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no, maximum-scale=1"
+    />
+
+    <!-- Safe area insets for notched devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Agent Audit Dashboard" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" sizes="any" href="/favicon.ico" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0f172a" />
+
+    <!-- Description and SEO -->
+    <meta
+      name="description"
+      content="Agent Audit Dashboard - Real-time monitoring and verification for AI crypto agents"
+    />
+    <meta name="keywords" content="agent, audit, dashboard, blockchain, verification, monitoring" />
+    <meta name="author" content="SatoshiPierogi" />
+
+    <!-- Open Graph for social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Agent Audit Dashboard" />
+    <meta
+      property="og:description"
+      content="Real-time monitoring and verification for AI crypto agents"
+    />
+    <meta property="og:site_name" content="Agent Audit Dashboard" />
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-security-policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Preload critical fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- DNS Prefetch for external services -->
+    <link rel="dns-prefetch" href="https://api.etherscan.io" />
+    <link rel="dns-prefetch" href="https://api.thegraph.com" />
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('/sw.js', { scope: '/' })
+            .then((registration) => {
+              console.log('Service Worker registered successfully:', registration);
+            })
+            .catch((error) => {
+              console.log('Service Worker registration failed:', error);
+            });
+        });
+      }
+    </script>
+
+    <!-- App Shell Loading -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+      }
+
+      #root {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Loading skeleton for app shell */
+      .app-loading {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      }
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #e2e8f0;
+        border-top-color: #64748b;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Safe area support for notched devices */
+      @supports (padding: max(0px)) {
+        body {
+          padding-left: max(var(--safe-area-inset-left, 0px), 0px);
+          padding-right: max(var(--safe-area-inset-right, 0px), 0px);
+          padding-top: max(var(--safe-area-inset-top, 0px), 0px);
+          padding-bottom: max(var(--safe-area-inset-bottom, 0px), 0px);
+        }
+      }
+
+      /* Prevent zoom on input focus (mobile fix) */
+      input,
+      textarea,
+      select {
+        font-size: 16px;
+      }
+
+      /* Touch-friendly scrolling */
+      body {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      input,
+      textarea,
+      [contenteditable] {
+        -webkit-user-select: text;
+        user-select: text;
+      }
+
+      /* Prevent elastic scroll on iOS */
+      body {
+        overscroll-behavior-y: none;
+      }
+    </style>
+
+    <title>Agent Audit Dashboard</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="app-loading">
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
