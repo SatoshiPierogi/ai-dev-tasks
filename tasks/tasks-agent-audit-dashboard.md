@@ -68,9 +68,9 @@ Tasks are organized by dependency tier to enable parallel work streams. Start ta
 
 ### TIER 1: Foundation - Week 1-2
 
-- [ ] 0.0 Create feature branch
-  - [ ] 0.1 Create and checkout branch: `git checkout -b claude/agent-audit-dashboard-mvp-<sessionid>`
-  - [ ] 0.2 Verify branch is based on main/master
+- [x] 0.0 Create feature branch
+  - [x] 0.1 Create and checkout branch: `git checkout -b claude/agent-audit-dashboard-mvp-<sessionid>`
+  - [x] 0.2 Verify branch is based on main/master
 
 - [ ] 1.0 Database Schema & Data Model Design
   - [ ] 1.1 Design PostgreSQL schema with tables: users (wallets), agents, transactions, verification_proofs
